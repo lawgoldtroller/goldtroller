@@ -5,6 +5,7 @@ HttpClient client = new HttpClient();
 
 for (int i = 0; i < bulksCount; i++)
 {
+    Console.WriteLine($"Bulk ----------------------------------{i}--------------------------------------")
     IEnumerable<Task> sendTasks = Enumerable.Range(0, tasksPerBulkCount).Select(item =>
     {
         return Task.Run(() =>
